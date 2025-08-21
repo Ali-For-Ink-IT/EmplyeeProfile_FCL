@@ -1,0 +1,75 @@
+<mvc:View displayBlock="true" controllerName="employeeprofileui.controller.List" height="100%"
+	  xmlns="sap.m"
+	  xmlns:f="sap.f"
+	  xmlns:mvc="sap.ui.core.mvc"
+	  xmlns:formatter="employeeprofileui.model.formatter">
+	<f:DynamicPage id="dynamicPageId"
+				   toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<!-- <Title text="Products ({products>/ProductCollectionStats/Counts/Total})"/> -->
+					<Title text="Employee Details"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+	
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table
+				id="employeesTable"
+				mode="SingleSelectMaster"
+				itemPress="onListItemPress"
+				inset="false"
+				items="{
+					path: 'emp>/EmpJob',
+					sorter: {
+						path: 'userId'
+					}
+				}"
+				class="sapFDynamicPageAlignContent"
+				width="auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<SearchField search="onSearch" width="17.5rem"/>
+						<OverflowToolbarButton icon="sap-icon://add" type="Transparent" press="onAdd"/>
+						<OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="Employees" />
+					</Column>
+					<Column	hAlign="End">
+						<Text text="WorkSchedule" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier class="myCustomObjectIdentifier" title="{parts: [ { path: 'emp>employmentNav' } ],
+    						formatter: '.formatter.getFullName'}" text="{emp>userId}" />
+
+						<Text text="{emp>workscheduleCode}" />
+
+							
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

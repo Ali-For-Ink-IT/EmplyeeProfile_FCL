@@ -1,0 +1,9 @@
+/* Enter your custom styles here */
+.sapMObjectIdentifierTitle .sapMText {
+    font-size: 1.1rem !important;
+    
+}
+
+.sapMObjectIdentifierText .sapMText {
+    color: blue
+}

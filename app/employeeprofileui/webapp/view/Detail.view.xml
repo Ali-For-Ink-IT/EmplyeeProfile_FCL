@@ -1,0 +1,166 @@
+<mvc:View displayBlock="true" controllerName="employeeprofileui.controller.Detail" height="100%"
+		xmlns="sap.uxap"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:m="sap.m"
+		xmlns:f="sap.f"
+		xmlns:form="sap.ui.layout.form"
+		xmlns:formatter="employeeprofileui.model.formatter">
+
+	<ObjectPageLayout id="ObjectPageLayout"
+					 showTitleInHeaderContent="true"
+					alwaysShowContentHeader="false"
+					preserveHeaderStateOnScroll="false"
+					headerContentPinnable="true"
+					isChildPage="true"
+					upperCaseAnchorBar="false">
+				<headerTitle>
+					<ObjectPageDynamicHeaderTitle>
+						<expandedHeading>
+							 <m:Title  text="{parts: [ { path: 'emp>employmentNav' } ],
+    						formatter: '.formatter.getFullName'}" wrapping="true" class="sapUiSmallMarginEnd"/> 
+						</expandedHeading>
+
+						<snappedHeading>
+							<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+								<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+									
+								  <!-- <m:Avatar src="{products>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd"> </m:Avatar> -->
+									
+									<m:Avatar src="{parts: [{path: 'emp>employmentNav/photoNav'}], formatter: '.formatter.getPhotoSrc'}"
+  									displaySize="S" displayShape="Square"/>
+
+									
+								</m:FlexBox>
+							</m:FlexBox>
+						</snappedHeading>
+
+						<navigationActions>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose"  tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+						</navigationActions>
+
+						<actions>
+							<m:Button
+									text="Edit"
+									type="Emphasized"
+									press="toggleAreaPriority"/>
+							<m:Button
+									text="Delete"
+									type="Transparent"/>
+							<m:Button
+									text="Copy"
+									type="Transparent"/>
+							<m:Button
+									text="Toggle Footer"
+									type="Transparent"
+									press="onToggleFooter"/>
+							<m:Button
+									icon="sap-icon://action"
+									type="Transparent"/>
+						</actions>
+
+					</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+
+				<headerContent>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+						<m:Avatar src="{emp>userId}"
+								  displaySize="L"
+								  displayShape="Square"
+								  class="sapUiTinyMarginEnd">
+						</m:Avatar>
+						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+							<m:Label text="USER ID"/>
+							<m:Text text="{emp>userId}"/>
+						</m:VBox>
+						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+							<m:Label text="Employement Status"/>
+							<m:Text text="{emp>emplStatusNav/picklistLabels/0/label}"/>
+						</m:VBox>
+						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+							<m:Label text="Department"/>
+							<m:Text text="{emp>departmentNav/name}"/>
+						</m:VBox>
+					</m:FlexBox>
+				</headerContent>
+
+		<sections>
+			<ObjectPageSection title="General Information">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+								maxContainerCols="2"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								emptySpanL="0"
+								emptySpanM="0"
+								columnsL="1"
+								columnsM="1">
+								<form:content>
+									<m:Label text="Start Date"/>
+									<m:Text text="{emp>startDate}"/>
+									<m:Label text="Location"/>
+									<m:Text text="{emp>locationNav/name}"/>
+									<m:Label text="Pay Grade"/>
+									<m:Text text="{emp>payGradeNav/nameTranslationNav/value_defaultValue} ({emp>payGradeNav/externalCode})"/>
+									<m:Label text="Company"/>
+									<m:Text text="{emp>companyNav/name}"/>
+									<m:Label text="Division"/>
+									<m:Text text="{emp>divisionNav/name}"/>
+									<m:Label text="Manager"/>
+									<m:Text text="{emp>managerUserNav/displayName}"/>
+								</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="Work Schedule">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+								maxContainerCols="2"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								emptySpanL="0"
+								emptySpanM="0"
+								columnsL="1"
+								columnsM="1">
+									<form:content>
+										<m:Label text="WorkSchedule Code"/>
+										<m:Text text="{emp>workscheduleCodeNav/externalCode}"/>
+										<m:Label text="Number Of Working Days"/>
+										<m:Text text="{emp>workscheduleCodeNav/averageWorkingDaysPerWeek}"/>
+										<m:Label text="Working Hours"/>
+										<m:Text text="{emp>workscheduleCodeNav/averageHoursPerDay}"/>
+										<m:Label text="Week Off"/>
+										<m:Text text="{parts: [ { path: 'emp>workscheduleCodeNav/startingDate' }, { path: 'emp>workscheduleCodeNav/workScheduleDayModels' } ],
+										formatter: '.formatter.getOffDaysFromWorkSchedule'}"/>
+									
+									</form:content>
+								
+							</form:SimpleForm>
+
+							<m:HBox>
+								<m:Link text="{emp>managerUserNav/displayName}" press="handleItemPress" class="sapUiSmallMarginBottom" />
+							</m:HBox>
+
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+		
+
+
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>

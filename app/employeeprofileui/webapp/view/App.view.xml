@@ -1,0 +1,12 @@
+<mvc:View controllerName="employeeprofileui.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <App id="app">
+    <Page title="Welcome">
+            <content>
+                <Text text="Hello, this is the Employee Profile UI app!" />
+            </content>
+        </Page>
+    </App>
+</mvc:View>
